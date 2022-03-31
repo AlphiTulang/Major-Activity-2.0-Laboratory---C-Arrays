@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+
+int main()
+{
+char ID[10], PIN[10];
+bool userFound=false, wrongPassword = false, userDoesNotExist=false;
+
+char userData[3][10] =
+{
+"10000",
+"10001",
+"10002"
+};
+
+char pinData[3][10] =
+{
+"0117",
+"0118",
+"0119"
+};
+
+printf("Enter your ID#:\n");
+fgets(ID, sizeof(ID), stdin);
+
+
+int newline = strlen(ID) - 1;
+if (ID[newline] == '\n')
+{
+ID[newline] = '\0';
+}
+
+printf("Enter your PIN#:\n");
+fgets(PIN, sizeof(PIN), stdin);
+
+
+newline = strlen(PIN) - 1;
+if (PIN[newline] == '\n')
+{
+PIN[newline] = '\0';
+}
+
+for (int x = 0; x < 3; x++)
+{
+if (strcmp(ID, userData[x]) == 0)
+{
+userFound = true;
+if (strcmp(PIN, pinData[x]) == 0)
+{
+wrongPassword = false;
+userDoesNotExist = false;
+break;
+}
+else
+{
+wrongPassword = true;
+}
+}
+else
+{
+userDoesNotExist = true;
+}
+}
+
+
+if (userFound && !wrongPassword)
+{
+printf("\nYou have Successfully Logged in!");
+}
+
+if (wrongPassword && userFound)
+{
+printf("\nInvalid ID/PIN.");
+}
+
+if (userDoesNotExist && !userFound)
+{
+printf("\nUser doesn't exist");
+}
+
+return 0;
+}
